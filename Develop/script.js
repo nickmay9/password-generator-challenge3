@@ -1,6 +1,13 @@
 // Assignment code here
-function generatePassword() {
 
+/*
+* function generateParameters()
+* This function prompts the user for several inputs
+* in order to generate the users desired password
+* parameters.
+*/
+function generateParameters(){
+  var pwParameters = [];
   var correctEntry = false; //boolean value to run loop until correct entry is inputed
 
   // while loop that will run until the user enters a correct value between 8 and 128
@@ -9,7 +16,8 @@ function generatePassword() {
     var pwLength = prompt("What is the length of your password? Please select a length between 8 and 128.");
     
     //if user entered correct value
-    if (element>=8 && element<=128){
+    if (pwLength>=8 && pwLength<=128){
+      pwParameters.push(pwLength);
       correctEntry = true;
     }
     //if user entered wrong value
@@ -32,11 +40,37 @@ function generatePassword() {
     //check to see if at least one value was selected
     if (lowercase || uppercase || numeric || special)
     {
+      pwParameters.push(lowercase, uppercase, numeric, special);
       correctEntry = true;
     }
   }
   
-  return pwLength;
+  return pwParameters;
+}
+
+function generatePassword() {
+  pwParameters = generateParameters();
+  var password = ""; //initializing password variable to concatenate the randomly generated values
+
+  var charactersList = ""; //initializing string to create list of character values to pick from
+  if (pwParameters[1]) {  // if lowercase is true add to list
+    charactersList += "abcdefghijklmnopqrstuvwxyz";
+  }
+  if (pwParameters[2]){ //if uppercase is true add to list
+    charactersList += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+  if (pwParameters[3]) { //if numeric is true add to list
+    charactersList += "0123456789";
+  }
+  if (pwParameters[4]) { //if special characters is true add to list
+    charactersList += " !\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
+  }
+
+  for (var i=0; i<=pwParameters[0]; i++){
+    password += charactersList.charAt(Math.floor(Math.random()*charactersList.length));
+  }
+
+  return password;
 }
 
 
