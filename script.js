@@ -48,6 +48,12 @@ function generateParameters(){
   return pwParameters;
 }
 
+/*
+* function generatePassword()
+* This function calls the function generateParameters()
+* to receive a list of user prompted parameters to
+* create a randomly generated password
+*/
 function generatePassword() {
   pwParameters = generateParameters();
   var password = ""; //initializing password variable to concatenate the randomly generated values
